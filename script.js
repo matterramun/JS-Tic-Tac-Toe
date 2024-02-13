@@ -17,16 +17,20 @@ const GameBoard = (function() {
     }
 })(document);
 
-function Player(name, marker){
-    this.name = name;
-    this.marker = marker;
+class Player {
+    constructor(name, marker) {
+        this.name = name;
+        this.marker = marker;
+    }
 }
 
 function submitUser (event) {
     event.preventDefault();
     const inputForm = document.getElementById('inputForm')
+
     // Create and append name field
     let nameField = document.createElement('input')
+    nameField.name = 'name'
     inputForm.appendChild(nameField)
 
     // Create and append marker selector
@@ -40,13 +44,13 @@ function submitUser (event) {
     });
     inputForm.appendChild(markerSelector)
 
-    // Generate Player object
-    const newPlayer = new Player(inputForm.name.value, inputForm.marker.value)
-
     // Remove form
     while (inputForm.firstChild) {
         inputForm.removeChild(inputForm.firstChild)
     }
+    
+    // Generate and return Player object
+    return new Player(inputForm.name.value, inputForm.marker.value)
 }
 
 function cancelUser (event) {
