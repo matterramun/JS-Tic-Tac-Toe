@@ -1,0 +1,60 @@
+const GameBoard = (function() {
+    let board = [ [], [], [] ]
+    const winChecker = () => {};
+
+    const writeToBoard = (marker, cell) => {
+        board[cell[0]][cell[1]] = marker
+        writeToDOM(selector, board)
+    };
+
+    const writeToDOM = (selector, board) => {};
+
+    return {
+        winChecker,
+        writeToBoard,
+        writeToDOM
+
+    }
+})(document);
+
+function Player(name, marker){
+    this.name = name;
+    this.marker = marker;
+}
+
+function submitUser (event) {
+    event.preventDefault();
+    const inputForm = document.getElementById('inputForm')
+    // Create and append name field
+    let nameField = document.createElement('input')
+    inputForm.appendChild(nameField)
+
+    // Create and append marker selector
+    let markerSelector = document.createElement('select')
+    markerSelector.id = 'markerSelector'
+    const options = ['X','O']
+    options.forEach(optionText => {
+        const option = document.createElement('option');
+        option.textContent = optionText;
+        markerSelector.appendChild(option);
+    });
+    inputForm.appendChild(markerSelector)
+
+    // Generate Player object
+    const newPlayer = new Player(inputForm.name.value, inputForm.marker.value)
+
+    // Remove form
+    while (inputForm.firstChild) {
+        inputForm.removeChild(inputForm.firstChild)
+    }
+}
+
+function cancelUser (event) {
+    event.preventDefault();
+    let inputForm = document.getElementById('inputForm')
+    
+    // Remove form
+    while (inputForm.firstChild) {
+        inputForm.removeChild(inputForm.firstChild)
+    }
+}
